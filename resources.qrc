@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>OpenSans.ttf</file>
+    </qresource>
+    <qresource prefix="/buttons">
+        <file>CustomButton.qml</file>
+    </qresource>
+    <qresource prefix="/menu">
+        <file>SecretMenu.qml</file>
+    </qresource>
+    <qresource prefix="/code">
+        <file>SecretCodeLogic.qml</file>
+    </qresource>
+</RCC>

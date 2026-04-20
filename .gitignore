@@ -1,0 +1,57 @@
+# Built files
+build/
+release/
+Debug/
+Release/
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.manifest
+*.qrc.cpp
+*.moc_*.cpp
+*.rcc
+
+# Qt-generated files
+*.qmake.stash
+*.user
+*.user.*.bak
+*.pro.user
+*.pro.user.*.bak
+
+# IDE files
+.vs/
+.vscode/
+*.sln
+*.vcxproj*
+*.filters
+*.ipch/
+*.sdf
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.swo
+
+# Build system
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+
+# Packaging / distribution
+*.zip
+*.7z
+*.rar
+*.msi
+*.exe
+
+# Logs and temp
+*.log
+*.tmp
+temp/
