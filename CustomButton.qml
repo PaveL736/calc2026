@@ -11,7 +11,8 @@ Item {
     property color specialHoverBackground: "#F7E425"
     property color deleteHoverBackground: "#F25E5E"
     property color pressBackground: "#04BFAD"
-    property color textColor: "#FFFFFF"
+    property color textColor: "#024873"
+    property color hoverTextColor: "#FFFFFF"
 
     signal clicked()
     signal longPressStarted()
@@ -41,8 +42,8 @@ Item {
         lineHeight: isBracket(text) ? 1.15 : 1.0
         font.family: "Open Sans Semibold"
         font.weight: isOperator(text) ? Font.Light : Font.Bold
-        font.pointSize: isOperator(text) ? 30 : 24
-        color: root.textColor
+        font.pointSize: 24
+        color: isSpecial(text) ? "transparent" : (root.hovered ? root.hoverTextColor : root.textColor)
     }
 
     // настройка толщины и размера шрифта

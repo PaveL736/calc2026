@@ -10,9 +10,11 @@ import "qrc:/code/" as Logic
 
 Window {
     id: mainWindow
-    width: 415; height: 640
+    width: 360; height: 640
     visible: true
-    flags: Qt.FramelessWindowHint
+    title: qsTr("calc2026")
+    flags: Qt.FramelessWindowHint | Qt.Window
+
 
     Calculator { id: calcEngine }
 
@@ -20,6 +22,7 @@ Window {
     Component.onCompleted: {
         calcController.handleKey("0"); // "0" на дисплее
     }
+
 
     FontLoader { id: openSans; source: "qrc:/fonts/OpenSans.ttf" }
 
@@ -64,7 +67,8 @@ Window {
                     const res = calcEngine.calculate(resultText.text)
                     expressionText.text = resultText.text
                     resultText.text     = res.toString()
-                } catch (e) {
+                }
+                catch (e) {
                     resultText.text = "Ошибка"
                     expressionText.text = ""
                 }
@@ -83,7 +87,8 @@ Window {
             // обычный ввод
             if (resultText.text === "0" && text !== ".") {
                 resultText.text = text
-            } else {
+            }
+            else {
                 resultText.text += text
             }
 
@@ -155,12 +160,13 @@ Window {
         anchors.top: parent.top  // начало сверху
         anchors.horizontalCenter: parent.horizontalCenter
         topPadding: 50  // опускаем дисплей ниже
-        spacing: 15  // интервал между дисплеем и кнопками
+        spacing: 20  // интервал между дисплеем и кнопками
 
         // дисплей
         Rectangle {
             id: display
-            width: 350
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 281
             height: 150
             radius: 16
             color: "#04BFAD"
@@ -175,7 +181,7 @@ Window {
                     bottom: undefined          // не трогаем центр
                     margins: 5
                 }
-                height: parent.height * 0.25   // 25 % высоты дисплея
+                height: parent.height * 0.30   // 30 % высоты дисплея
                 font { family: "Open Sans Semibold"; pointSize: 20 }
                 color: "#FFFFFF"
                 horizontalAlignment: Text.AlignRight
@@ -193,8 +199,8 @@ Window {
                     bottom: parent.bottom;
                     margins: 5
                 }
-                height: parent.height * 0.65
-                font { family: "Open Sans Semibold"; pointSize: 60 }
+                height: parent.height * 0.60
+                font { family: "Open Sans Semibold"; pointSize: 50 }
                 color: "#FFFFFF"
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignBottom
@@ -202,7 +208,7 @@ Window {
 
                 function fitText() {
                     const maxWidth = parent.width - anchors.margins * 2;
-                    font.pointSize = 60; // сброс к базовому
+                    font.pointSize = 50; // сброс к базовому
                     fitTimer.restart(); // даём тик, пока движок обновит contentWidth
                 }
 
@@ -228,23 +234,53 @@ Window {
         // сетка с кнопками
         GridLayout {
             id: calcGrid
+            anchors.horizontalCenter: parent.horizontalCenter
+
             columns: 4
-            columnSpacing: 40
-            rowSpacing: 25
+            columnSpacing: 20
+            rowSpacing: 20
 
 
 
-            Buttons.CustomButton { id: btnPar;   text: "()";  normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnPar;   text: "()";  normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleParentheses()
+                Image {
+                    source: "qrc:/svg/bkt.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
-            Buttons.CustomButton { id: btnSign;  text: "\u207A\u2215\u208B"; normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnSign;  text: "\u207A\u2215\u208B"; normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/plus_minus.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
-            Buttons.CustomButton { id: btnPct;   text: "%";   normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnPct;   text: "%";   normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/percent.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
-            Buttons.CustomButton { id: btnDiv;   text: "\u00F7"; normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnDiv;   text: "\u00F7"; normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/division.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
 
 
@@ -258,8 +294,15 @@ Window {
             Buttons.CustomButton { id: btn9;     text: "9";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
             }
-            Buttons.CustomButton { id: btnMul;   text: "×";   normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnMul;   text: "×";   normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/multiplication.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
 
 
@@ -273,8 +316,15 @@ Window {
             Buttons.CustomButton { id: btn6;     text: "6";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
             }
-            Buttons.CustomButton { id: btnSub;   text: "\u2212"; normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnSub;   text: "\u2212"; normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/minus.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
 
 
@@ -288,13 +338,20 @@ Window {
             Buttons.CustomButton { id: btn3;     text: "3";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
             }
-            Buttons.CustomButton { id: btnAdd;   text: "+";   normalBackground: "#0889A6";
+            Buttons.CustomButton { id: btnAdd;   text: "+";   normalBackground: "#0889A6"; textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
+                Image {
+                    source: "qrc:/svg/plus.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
             }
 
 
 
-            Buttons.CustomButton { id: btnClr;   text: "C";   normalBackground: "#FC7C7C";
+            Buttons.CustomButton { id: btnClr;   text: "C";   normalBackground: "#c28e8e"; textColor: "#FFFFFF";
                 secretArmed: mainWindow.isSecretArmed; onClicked: calcController.handleKey(text)
             }
             Buttons.CustomButton { id: btn0;     text: "0";
@@ -307,7 +364,16 @@ Window {
                 id: btnEq
                 text: "="
                 normalBackground: "#0889A6"
+                textColor: "transparent";
                 secretArmed: mainWindow.isSecretArmed
+
+                Image {
+                    source: "qrc:/svg/equal.svg"
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                    width: 30
+                    height: 30
+                }
 
                 onClicked: calcController.handleKey("=")
 

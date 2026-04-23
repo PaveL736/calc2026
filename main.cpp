@@ -1,4 +1,6 @@
-#include <QGuiApplication>
+#include <QApplication>
+#include <QIcon>
+//#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
 #include <QDebug>
@@ -6,7 +8,6 @@
 #include <QIODevice>
 #include <QQmlContext>   // qmlRegisterType объявлено здесь
 #include "calculator.h"    // класс Calculator
-
 
 static void loadAppFonts()
 {
@@ -32,8 +33,15 @@ static void loadAppFonts()
 
 int main(int argc, char *argv[])
 {
+    QApplication app(argc, argv);
+    //QGuiApplication app(argc, argv);
 
-    QGuiApplication app(argc, argv);
+    if (QFile::exists(":/icons/calc_icon.ico")) {
+        qDebug() << "Иконка найдена";
+        app.setWindowIcon(QIcon(":/icons/calc_icon.ico"));
+    } else {
+        qDebug() << "Иконка не найдена!";
+    }
 
     // проверяем, что ресурс виден
     QFile f(":/fonts/OpenSans.ttf");
@@ -47,7 +55,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Calculator>("Calc", 1, 0, "Calculator");
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/calc2026/Main.qml"_qs);
+    //const QUrl url(u"qrc:/calc2026/Main.qml"_qs);
+    const QUrl url = QUrl::fromLocalFile(QStringLiteral("calc2026/Main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);

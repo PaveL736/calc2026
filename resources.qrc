@@ -11,4 +11,17 @@
     <qresource prefix="/code">
         <file>SecretCodeLogic.qml</file>
     </qresource>
+    <qresource prefix="/svg">
+        <file>bkt.svg</file>
+        <file>division.svg</file>
+        <file>equal.svg</file>
+        <file>minus.svg</file>
+        <file>multiplication.svg</file>
+        <file>percent.svg</file>
+        <file>plus.svg</file>
+        <file>plus_minus.svg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>calc_icon.ico</file>
+    </qresource>
 </RCC>
